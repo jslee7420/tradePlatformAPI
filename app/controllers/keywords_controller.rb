@@ -6,6 +6,12 @@ class KeywordsController < ApplicationController
     end
 
     def create
+        # 유효성 검사
+        @keyword = Keyword.new
+        @keyword.keyword =params[:keyword]
+        if !@keyword.valid? # 유효하지 않을시 에러 메세지 전송
+            return render json: @keyword.errors.messages, status: :bad_request
+        end
         if (@keyword= Keyword.find_by(keyword: params[:keyword])) == nil # 새로운 키워드인 경우
             # Keyword 데이터 추가
             @keyword = Keyword.new
@@ -21,12 +27,12 @@ class KeywordsController < ApplicationController
             @keyword.save
             @user_keyword.save
             # 생성확인 메세지 전송
-            puts "키워드 등록 완료"
+            render json: @keyword, status: :ok
 
         else # Keyword table에 존재하는 키워드인 경우
             # 이미 사용자가 등록한 키워드인 경우 생성하지 않음
             if UserKeyword.find_by(user: User.find(1)) !=nil # 유저 고정값 
-                puts "이미 등록한 키워드"
+                render json:{"message":"이미 등록한 키워드입니다."}, status: :bad_request
                 return
             end
             # Keyword 데이터 변경
@@ -42,7 +48,7 @@ class KeywordsController < ApplicationController
             @user_keyword.save
             
             # 생성확인 메세지 전송
-            puts "키워드 등록 완료"
+            render json: @keyword, status: :ok
         end
     end
 
@@ -60,10 +66,10 @@ class KeywordsController < ApplicationController
             end
             
             # 삭제 확인 메세지 전송
-            puts "삭제 완료"
+            render json: @keyword, status: :ok
         rescue Exception # 존재 하지 않는 경우 예외 처리
             # 존재하지 않음 메세지 전송
-            puts "존재하지 않는 키워드 입니다."
+            render json:{"message":"존재하지 않는 키워드입니다."}, status: :not_found
         end
     end
 end

@@ -39,3 +39,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem 'sidekiq'
+gem 'connection_pool'
+gem 'redis-objects'
