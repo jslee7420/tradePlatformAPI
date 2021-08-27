@@ -2,7 +2,7 @@ class KeywordPostUpdateJob < ApplicationJob
   queue_as :keyword_post_create # job을 담을 큐
 
   # 주어진 문자열로 만들 수 있는 모든 substring 배열(키워드 후보들) 리턴
-  # 키워드 길이를 1~30으로 제한했으므로 길이 1~30범위의 substring들만 생성
+  # 키워드 길이를 1~20으로 제한했으므로 길이 1~20범위의 substring들만 생성
   def makeSubstring(str)
     len = str.length
     @substrings = []
