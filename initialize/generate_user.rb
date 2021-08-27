@@ -1,3 +1,3 @@
 if User.first.present?
-    User.create!
+  User.create!
 end

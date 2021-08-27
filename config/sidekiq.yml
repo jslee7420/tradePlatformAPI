@@ -8,6 +8,7 @@ development:
   :timeout: 30
   :queues:
     - keyword_post_create
+    - keywords
 
 production:
   :verbose: false
@@ -16,3 +17,4 @@ production:
   :timeout: 5
   :queues:
     - keyword_post_create
+    - keywords
